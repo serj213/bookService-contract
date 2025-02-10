@@ -1,0 +1,50 @@
+
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package book;
+
+option go_package = "serj213.bookService.v1;bsv1";
+
+
+// Book service create and get book in library
+service Book {
+    rpc Create(BookCreateRequest) returns (BookResponse);
+    rpc Delete(BookDeleteRequest) returns (BookDeleteResponse);
+    rpc GetBookById(BookGetBookByIdRequest) returns (BookResponse);
+    rpc GetBooks(google.protobuf.Empty) returns (stream BookResponse);
+    rpc UpdateBook(BookUpdateRequest) returns (BookResponse);
+}
+
+
+message BookCreateRequest {
+    string title = 1;
+    string author = 2;
+    string category = 3;
+}
+
+message BookResponse {
+    int64 id = 1;
+    string title = 2;
+    string author = 3;
+    string category = 4;
+}
+
+message BookDeleteRequest {
+    int64 id = 1;
+}
+
+message BookDeleteResponse {
+    bool status = 1;
+}
+
+
+message BookGetBookByIdRequest {
+    int64 id = 1;
+}
+
+message BookUpdateRequest {
+    int64 id = 1;
+    int64 category = 3;
+}
